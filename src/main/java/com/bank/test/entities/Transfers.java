@@ -1,4 +1,4 @@
-package com.bank.test.Entities;
+package com.bank.test.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

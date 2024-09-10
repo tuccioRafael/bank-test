@@ -1,8 +1,9 @@
-package com.bank.test.Controllers;
+package com.bank.test.controllers;
 
-import com.bank.test.DTO.TransferRequest;
-import com.bank.test.Entities.Transfers;
-import com.bank.test.Services.TransferService;
+import com.bank.test.dto.TransferRequest;
+import com.bank.test.entities.Transfers;
+import com.bank.test.services.TransferService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class TransferController {
     }
 
     @PostMapping
-    public void createTransfers (@RequestBody TransferRequest transfer) {
+    public void createTransfers (@Valid @RequestBody TransferRequest transfer) {
         this.transferService.createTransfers(transfer);
     }
 }

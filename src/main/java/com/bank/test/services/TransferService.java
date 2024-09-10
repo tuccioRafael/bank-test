@@ -1,8 +1,8 @@
-package com.bank.test.Services;
+package com.bank.test.services;
 
-import com.bank.test.DTO.TransferRequest;
-import com.bank.test.Entities.Transfers;
-import com.bank.test.TransferRepository;
+import com.bank.test.dto.TransferRequest;
+import com.bank.test.entities.Transfers;
+import com.bank.test.repositories.TransferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
