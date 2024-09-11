@@ -12,7 +12,7 @@ public record TransferRequest(
         String originAccount,
 
         @NotBlank(message = "A conta de destino não pode ser vazia.")
-        @Pattern(regexp = "^\\d{10}$", message = "Número da conta origem invalido.")
+        @Pattern(regexp = "^\\d{10}$", message = "Número da conta destino invalido.")
         String destinationAccount,
 
         @NotNull(message = "O valor não pode ser vazio.")
