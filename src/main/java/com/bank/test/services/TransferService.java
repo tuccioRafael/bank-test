@@ -1,9 +1,10 @@
 package com.bank.test.services;
-import com.bank.test.dto.TransferRequest;
-import com.bank.test.dto.TransferResponse;
-import com.bank.test.dto.TransferUpdateRequest;
+import com.bank.test.services.dto.TransferRequest;
+import com.bank.test.services.dto.TransferResponse;
+import com.bank.test.services.dto.TransferUpdateRequest;
 import com.bank.test.entities.Transfers;
 import com.bank.test.repositories.TransferRepository;
+import com.bank.test.services.dto.TransfersDetailsResponse;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,10 +18,10 @@ public class TransferService {
     private TransferRepository repository;
 
     @Transactional
-    public Transfers createTransfers(TransferRequest transferData) {
+    public TransfersDetailsResponse createTransfers(TransferRequest transferData) {
         var transfer = new Transfers(transferData);
         repository.save(transfer);
-        return transfer;
+        return new TransfersDetailsResponse(transfer);
     }
 
     public Page<TransferResponse> findAllTransfers(Pageable pageable) {
@@ -28,10 +29,10 @@ public class TransferService {
     }
 
     @Transactional
-    public Transfers updateTransfer(TransferUpdateRequest transferData) {
+    public TransfersDetailsResponse updateTransfer(TransferUpdateRequest transferData) {
         var transfer = repository.getReferenceById(transferData.id());
         transfer.update(transferData);
-        return transfer;
+        return new TransfersDetailsResponse(transfer);
     }
 
     @Transactional
@@ -40,8 +41,8 @@ public class TransferService {
         transfer.softDelete();
     }
 
-    public Transfers getTransfersById(Long id) {
-        return this.repository.getReferenceById(id);
+    public TransfersDetailsResponse getTransfersById(Long id) {
+        return new TransfersDetailsResponse(this.repository.getReferenceById(id));
     }
 
 }

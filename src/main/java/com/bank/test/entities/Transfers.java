@@ -1,8 +1,8 @@
 package com.bank.test.entities;
 
 
-import com.bank.test.dto.TransferRequest;
-import com.bank.test.dto.TransferUpdateRequest;
+import com.bank.test.services.dto.TransferRequest;
+import com.bank.test.services.dto.TransferUpdateRequest;
 import com.bank.test.services.CalculatorTransfer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

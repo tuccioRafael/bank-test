@@ -1,4 +1,4 @@
-package com.bank.test.dto;
+package com.bank.test.services.dto;
 
 import com.bank.test.entities.Transfers;
 

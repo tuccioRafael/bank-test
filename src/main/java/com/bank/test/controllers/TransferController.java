@@ -1,8 +1,8 @@
 package com.bank.test.controllers;
-import com.bank.test.dto.TransferRequest;
-import com.bank.test.dto.TransferResponse;
-import com.bank.test.dto.TransferUpdateRequest;
-import com.bank.test.dto.TransfersDetailsResponse;
+import com.bank.test.services.dto.TransferRequest;
+import com.bank.test.services.dto.TransferResponse;
+import com.bank.test.services.dto.TransferUpdateRequest;
+import com.bank.test.services.dto.TransfersDetailsResponse;
 import com.bank.test.repositories.TransferRepository;
 import com.bank.test.services.TransferService;
 import jakarta.validation.Valid;
@@ -30,20 +30,20 @@ public class TransferController {
     @GetMapping("/{id}")
     public ResponseEntity<TransfersDetailsResponse> getTransferDetails(@PathVariable Long id) {
         var transfer = this.transferService.getTransfersById(id);
-        return ResponseEntity.ok(new TransfersDetailsResponse(transfer));
+        return ResponseEntity.ok(transfer);
     }
 
     @PostMapping
     public ResponseEntity<TransfersDetailsResponse> createTransfers (@Valid @RequestBody TransferRequest transferData, UriComponentsBuilder uriBuilder) {
         var trasnfer = this.transferService.createTransfers(transferData);
-        var uri = uriBuilder.path("/transfers/{id}").buildAndExpand(trasnfer.getId()).toUri();
-        return ResponseEntity.created(uri).body(new TransfersDetailsResponse(trasnfer));
+        var uri = uriBuilder.path("/transfers/{id}").buildAndExpand(trasnfer.id()).toUri();
+        return ResponseEntity.created(uri).body(trasnfer);
     }
 
     @PutMapping()
     public ResponseEntity<TransfersDetailsResponse> updateTransfer (@Valid @RequestBody TransferUpdateRequest transferData) {
         var transfer = this.transferService.updateTransfer(transferData);
-        return ResponseEntity.ok(new TransfersDetailsResponse(transfer));
+        return ResponseEntity.ok(transfer);
     }
 
     @DeleteMapping("/{id}")

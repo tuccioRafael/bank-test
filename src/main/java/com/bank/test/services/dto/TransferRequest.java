@@ -1,4 +1,4 @@
-package com.bank.test.dto;
+package com.bank.test.services.dto;
 
 import com.bank.test.constraints.FutureOrTodayValidate;
 import com.bank.test.constraints.TransferDateValidate;
@@ -8,11 +8,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public record TransferRequest(
-        @NotBlank(message = "A conta de origem não pode ser vazia.")
         @Pattern(regexp = "^\\d{10}$", message = "Número da conta origem invalido.")
         String originAccount,
 
-        @NotBlank(message = "A conta de destino não pode ser vazia.")
         @Pattern(regexp = "^\\d{10}$", message = "Número da conta destino invalido.")
         String destinationAccount,
 
