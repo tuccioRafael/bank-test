@@ -1,6 +1,9 @@
 package com.bank.test.entities;
 
 
+import com.bank.test.dto.TransferRequest;
+import com.bank.test.dto.TransferUpdateRequest;
+import com.bank.test.services.CalculatorTransfer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,29 +49,23 @@ public class Transfers {
     @Column
     private LocalDate deletedAt;
 
-    public Transfers(
-            String originAccount,
-            String destinationAccount,
-            BigDecimal transferValue,
-            BigDecimal rate,
-            LocalDate transferDate) {
-
-        this.originAccount = originAccount;
-        this.destinationAccount = destinationAccount;
-        this.transferValue = transferValue;
-        this.rate = rate;
+    public Transfers(TransferRequest transferData) {
+        this.originAccount = transferData.originAccount();
+        this.destinationAccount = transferData.destinationAccount();
+        this.transferValue = transferData.transferValue();
+        this.rate = CalculatorTransfer.calculateRate(transferData.transferValue(), transferData.transferDate());
+        this.transferDate = transferData.transferDate();
         this.createdAt = LocalDate.now();
         this.updatedAt = LocalDate.now();
-        this.transferDate = transferDate;
     }
 
-    public void update(String originAccount, String destinationAccount, BigDecimal transferValue, BigDecimal rate, LocalDate transferDate, LocalDate createdAt) {
-        this.originAccount = originAccount;
-        this.destinationAccount = destinationAccount;
-        this.rate = rate;
-        this.transferValue = transferValue;
-        this.transferDate = transferDate;
-        this.createdAt = createdAt;
+    public void update(TransferUpdateRequest transferData) {
+        this.originAccount = transferData.originAccount();
+        this.destinationAccount = transferData.destinationAccount();
+        this.rate = CalculatorTransfer.calculateRate(transferData.transferValue(), transferData.transferDate());
+        this.transferValue = transferData.transferValue();
+        this.transferDate = transferData.transferDate();
+        this.createdAt = transferData.createdAt();
         this.updatedAt = LocalDate.now();
     }
 

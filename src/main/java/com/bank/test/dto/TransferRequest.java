@@ -1,6 +1,7 @@
 package com.bank.test.dto;
 
 import com.bank.test.constraints.FutureOrTodayValidate;
+import com.bank.test.constraints.TransferDateValidate;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
@@ -20,6 +21,7 @@ public record TransferRequest(
         BigDecimal transferValue,
 
         @NotNull(message = "A data de transferencia não pode ser vazia.")
+        @TransferDateValidate
         @FutureOrTodayValidate
         LocalDate transferDate
         ) { }
