@@ -1,12 +1,18 @@
 package com.bank.test.dto;
 
 import com.bank.test.constraints.FutureOrTodayValidate;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public record TransferRequest(
+public record TransferUpdateRequest(
+        @NotNull
+        Long id,
+
         @NotBlank(message = "A conta de origem não pode ser vazia.")
         @Pattern(regexp = "^\\d{10}$", message = "Número da conta origem invalido.")
         String originAccount,
@@ -21,5 +27,8 @@ public record TransferRequest(
 
         @NotNull(message = "A data de transferencia não pode ser vazia.")
         @FutureOrTodayValidate
-        LocalDate transferDate
-        ) { }
+        LocalDate transferDate,
+
+        LocalDate createdAt
+        ) {
+}

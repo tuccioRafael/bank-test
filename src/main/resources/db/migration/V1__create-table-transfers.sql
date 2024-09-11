@@ -1,9 +1,11 @@
---CREATE TABLE transfers (
---    id BIGINT AUTO_INCREMENT PRIMARY KEY,
---    origin_account VARCHAR(10) NOT NULL,
---    destination_account VARCHAR(10) NOT NULL,
---    transfer_value DECIMAL(10, 2) NOT NULL,
---    rate DECIMAL(10, 2) NOT NULL,
---    date_transfers TIMESTAMP NOT NULL,
---    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
---);
+CREATE TABLE IF NOT EXISTS transfers (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    origin_account VARCHAR(10) NOT NULL,
+    destination_account VARCHAR(10) NOT NULL,
+    transfer_value DECIMAL(10, 2) NOT NULL,
+    rate DECIMAL(10, 2) NOT NULL,
+    transfer_date TIMESTAMP NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP DEFAULT NULL
+);
