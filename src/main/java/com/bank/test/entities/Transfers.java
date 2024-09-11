@@ -65,7 +65,6 @@ public class Transfers {
         this.rate = CalculatorTransfer.calculateRate(transferData.transferValue(), transferData.transferDate());
         this.transferValue = transferData.transferValue();
         this.transferDate = transferData.transferDate();
-        this.createdAt = transferData.createdAt();
         this.updatedAt = LocalDate.now();
     }
 
