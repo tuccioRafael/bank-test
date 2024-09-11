@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -19,14 +20,16 @@ public class TransferService {
     private TransferRepository repository;
 
     @Transactional
-    public void createTransfers (TransferRequest transfer) {
-        repository.save(new Transfers(
-                transfer.originAccount(),
-                transfer.destinationAccount(),
-                transfer.transferValue(),
-                this.taxCalc(transfer.transferDate(), transfer.transferValue()),
-                transfer.transferDate()
-        ));
+    public Transfers createTransfers (TransferRequest transferData) {
+        var transfer = new Transfers(
+                transferData.originAccount(),
+                transferData.destinationAccount(),
+                transferData.transferValue(),
+                this.taxCalc(transferData.transferDate(), transferData.transferValue()),
+                transferData.transferDate()
+        );
+        repository.save(transfer);
+        return transfer;
     }
 
     public Page<TransferResponse> findAllTransfers (Pageable pageable) {
@@ -34,7 +37,7 @@ public class TransferService {
     }
 
     @Transactional
-    public void updateTransfer(TransferUpdateRequest transferData) {
+    public Transfers updateTransfer(TransferUpdateRequest transferData) {
         var transfer = repository.getReferenceById(transferData.id());
         transfer.update(
                 transferData.originAccount(),
@@ -44,6 +47,7 @@ public class TransferService {
                 transferData.transferDate(),
                 transferData.createdAt()
         );
+        return transfer;
 
     }
 
@@ -51,6 +55,10 @@ public class TransferService {
     public void deleteTransfer(Long id) {
         var transfer = this.repository.getReferenceById(id);
         transfer.softDelete();
+    }
+
+    public Transfers getTransfersById(Long id) {
+        return this.repository.getReferenceById(id);
     }
 
     private BigDecimal taxCalc(LocalDate transferDate, BigDecimal transferValue) {
