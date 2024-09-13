@@ -30,7 +30,7 @@ Antes de iniciar, você precisará ter o seguinte instalado:
 ### 1. Clonar o Repositório
 
 ```bash
-git clone https://github.com/seu-usuario/sua-aplicacao.git
+git clone https://github.com/tuccioRafael/bank-test.git
 cd sua-aplicacao
 ```
 
